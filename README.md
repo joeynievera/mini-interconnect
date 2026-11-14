@@ -1,7 +1,7 @@
 # Mini Interconnection Study
 
 
-# Bus Types of the IEEE 14 Bus Case
+### Bus Types of the IEEE 14 Bus Case
 |   Bus | type   |   vm_pu |   va_degree |     p_mw |   q_mvar |
 |------:|:-------|--------:|------------:|---------:|---------:|
 |     0 | Slack  |   1.06  |       0     | -232.393 |   16.549 |
