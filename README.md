@@ -7,8 +7,11 @@ A Python/pandapower study of how a new generator affects a transmission grid.
 - IEEE 14-bus base case converges
 - Total system losses: 13.39 MW (272.39 MW generated, 259.0 MW load)
 
+## Phase 1: Learn Power Flow Basics
 
-### Bus Types of the IEEE 14 Bus Case
+I classified every bus as PQ by default, then set buses with in-service generators to PV and the external grid bus to Slack.
+
+### IEEE 14-bus results
 |   Bus | type   |   vm_pu |   va_degree |     p_mw |   q_mvar |
 |------:|:-------|--------:|------------:|---------:|---------:|
 |     0 | Slack  |   1.06  |       0     | -232.393 |   16.549 |
@@ -26,11 +29,20 @@ A Python/pandapower study of how a new generator affects a transmission grid.
 |    12 | PQ     |   1.05  |     -15.156 |   13.5   |    5.8   |
 |    13 | PQ     |   1.036 |     -16.034 |   14.9   |    5     |
 
+## How To Run
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install pandapower matplotlib tabulate
+python powerflow.py
+```
+## What I Learned
+
 ###### Slack Buses
-A slack bus is a bus used to balance the active power and reactive power in a system. I determined it in this case by checking if it has an external grid connection. This is because pandapower uses this as the default way to identify a slack bus.
+A slack bus is a bus used to balance the active power and reactive power in a system. 
 
 ###### PV Buses
-A PV bus is a bus where the real power and the voltage magnitude are specified. Real power and voltage are specified for buses with a generator that controls voltage, which is how I indentified them in this case.
+A PV bus is a bus where the real power and the voltage magnitude are specified.
 
 ###### PQ Bus
-A PQ bus is a bus where the real power and reactive power are specified. This is the default bus type, and those buses that were not PV or slack were idenitified as PQ in this case.
+A PQ bus is a bus where the real power and reactive power are specified. 
