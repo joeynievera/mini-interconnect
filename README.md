@@ -1,1 +1,1 @@
-# mini-interconnect
+# Mini Interconnection Study
