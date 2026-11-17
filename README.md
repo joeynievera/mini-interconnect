@@ -1,18 +1,33 @@
 # Mini Interconnection Study
 A Python/pandapower study of how a new generator affects a transmission grid.
 
-> Work in progress. In Phase 1 (Learn Power Flow Basics)
+> **Status:** Phase 1 of 5 (Power Flow Basics), in progress
 
-## Key Results
-- IEEE 14-bus base case converges
+## Key Results (so far)
+- IEEE 14-bus base case converges with Newton-Raphson power flow
 - Total system losses: 13.39 MW (272.39 MW generated, 259.0 MW load)
+- Bus voltages range from 1.010 to 1.090 pu; 7 buses sit above 1.05 pu
 
-## Phase 1: Learn Power Flow Basics
+## Roadmap
+- [ ] **Phase 1: Power flow basics** (IEEE 14- and 118-bus)
+- [ ] **Phase 2: N-1 contingency scan** (line/transformer outages, voltage and loading limits)
+- [ ] **Phase 3: Solar plant injection capability**
+- [ ] **Phase 4: Short-circuit study** (fault current before/after the plant)
+- [ ] **Phase 5: Texas A&M synthetic grid + polish**
 
-I classified every bus as PQ by default, then set buses with in-service generators to PV and the external grid bus to Slack.
+---
 
-### IEEE 14-bus results
-#### Buses
+## Learning Log
+
+### Phase 1: Power Flow Basics
+**Goal:** Run a power flow on a standard test case and understand every column of the results.
+
+**What I did**
+- Loaded IEEE 14-bus in pandapower and ran `pp.runpp(net)`
+- Classified buses: PQ by default, PV where an in-service generator sits, Slack at the external grid
+
+**Results: IEEE 14-bus**
+
 |   Bus | type   |   vm_pu |   va_degree |     p_mw |   q_mvar |
 |------:|:-------|--------:|------------:|---------:|---------:|
 |     0 | Slack  |   1.06  |       0     | -232.393 |   16.549 |
@@ -30,35 +45,30 @@ I classified every bus as PQ by default, then set buses with in-service generato
 |    12 | PQ     |   1.05  |     -15.156 |   13.5   |    5.8   |
 |    13 | PQ     |   1.036 |     -16.034 |   14.9   |    5     |
 
-#### Lines
-|    |   loading_percent |
-|---:|------------------:|
-|  0 |             1.508 |
-|  1 |             0.721 |
-|  2 |             0.709 |
-|  3 |             0.543 |
-|  4 |             0.403 |
-|  5 |             0.24  |
-|  6 |             0.627 |
-|  7 |             0.077 |
-|  8 |             0.077 |
-|  9 |             0.181 |
-| 10 |             0.064 |
-| 11 |             0.097 |
-| 12 |             0.04  |
-| 13 |             0.017 |
-| 14 |             0.057 |
+Line loading peaked at 1.5%. That's not realistic: case14's lines likely have placeholder
+thermal ratings (check `net.line.max_i_ka`), so I'll use case118 for loading checks.
 
-## What I Learned
+**What I learned**
+| Bus type | Specified | Solved for | Role |
+|---|---|---|---|
+| Slack | \|V\|, angle | P, Q | Balances the system and covers losses; angle reference |
+| PV | P, \|V\| | Q, angle | Generator holding its voltage setpoint |
+| PQ | P, Q | \|V\|, angle | Load bus |
 
-###### Slack Buses
-A slack bus is a bus used to balance the active power and reactive power in a system. 
+- **Sign convention:** pandapower reports bus power from the load's point of view, so negative `p_mw` means the bus is generating (e.g. the slack bus at -232 MW).
+- **Loading percent:** line current as a percentage of its thermal current rating.
+- **Newton-Raphson:** _(in progress, by 11/19)_
 
-###### PV Buses
-A PV bus is a bus where the real power and the voltage magnitude are specified.
+**Open questions**
+- Why are several case14 voltages above 1.05 pu, and would a real utility accept that?
 
-###### PQ Bus
-A PQ bus is a bus where the real power and reactive power are specified. 
+### Phase 2: N-1 Contingency Scan
+_Planned: starts 11/30_
 
-###### Loading Percent
-Measures how close a line is to its maximum load
+---
+
+## How to Run
+_(coming in Phase 5)_
+
+## Repo Layout
+_(coming in Phase 5)_
