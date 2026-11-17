@@ -12,6 +12,7 @@ A Python/pandapower study of how a new generator affects a transmission grid.
 I classified every bus as PQ by default, then set buses with in-service generators to PV and the external grid bus to Slack.
 
 ### IEEE 14-bus results
+#### Buses
 |   Bus | type   |   vm_pu |   va_degree |     p_mw |   q_mvar |
 |------:|:-------|--------:|------------:|---------:|---------:|
 |     0 | Slack  |   1.06  |       0     | -232.393 |   16.549 |
@@ -29,13 +30,25 @@ I classified every bus as PQ by default, then set buses with in-service generato
 |    12 | PQ     |   1.05  |     -15.156 |   13.5   |    5.8   |
 |    13 | PQ     |   1.036 |     -16.034 |   14.9   |    5     |
 
-## How To Run
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install pandapower matplotlib tabulate numba
-python powerflow.py
-```
+#### Lines
+|    |   loading_percent |
+|---:|------------------:|
+|  0 |             1.508 |
+|  1 |             0.721 |
+|  2 |             0.709 |
+|  3 |             0.543 |
+|  4 |             0.403 |
+|  5 |             0.24  |
+|  6 |             0.627 |
+|  7 |             0.077 |
+|  8 |             0.077 |
+|  9 |             0.181 |
+| 10 |             0.064 |
+| 11 |             0.097 |
+| 12 |             0.04  |
+| 13 |             0.017 |
+| 14 |             0.057 |
+
 ## What I Learned
 
 ###### Slack Buses
@@ -46,3 +59,6 @@ A PV bus is a bus where the real power and the voltage magnitude are specified.
 
 ###### PQ Bus
 A PQ bus is a bus where the real power and reactive power are specified. 
+
+###### Loading Percent
+Measures how close a line is to its maximum load
