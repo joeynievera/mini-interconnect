@@ -33,7 +33,7 @@ I classified every bus as PQ by default, then set buses with in-service generato
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install pandapower matplotlib tabulate
+pip install pandapower matplotlib tabulate numba
 python powerflow.py
 ```
 ## What I Learned
