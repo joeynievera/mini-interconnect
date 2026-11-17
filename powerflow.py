@@ -20,3 +20,7 @@ print(table) # print the table to the console
 print(bus_types.value_counts()) # print the count of each bus type
 
 print(table.round(3).to_markdown()) # print the table in markdown format, rounded to 3 decimal places
+
+print(net.res_bus[["vm_pu", "va_degree"]].round(3).to_markdown()) # print voltage magnitude and angle in markdown format, rounded to 3 decimal places
+
+print(net.res_line[["loading_percent"]].round(3).to_markdown()) # print line loading percentage in markdown format, rounded to 3 decimal places
